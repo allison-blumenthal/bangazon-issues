@@ -1,0 +1,59 @@
+[
+  {
+    "model": "bangazonapi.product",
+    "pk": 1,
+    "fields": {
+      "seller_id": 1,
+      "name": "Baby Grand Piano",
+      "description": "Yamaha baby grand, mahogany color",
+      "price": 20799.00,
+      "quantity": 1,
+      "product_image_url": "https://www.cunninghampiano.com/cdn/shop/products/gb1k_fp_with_bench_1024x.jpg?v=1675958890",
+      "added_on": "2023-07-15",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 2,
+    "fields": {
+      "seller_id": 1,
+      "name": "Harmonica",
+      "description": "Lee Oskar Harmonica, Major Key of High G",
+      "price": 37.25,
+      "quantity": 3,
+      "product_image_url": "https://d1aeri3ty3izns.cloudfront.net/media/5/51826/600/preview_1.jpg",
+      "added_on": "2023-07-15",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 3,
+    "fields": {
+      "seller_id": 1,
+      "name": "Aurora Pedal Harp",
+      "description": "47-String Concert-Grand Pedal Harp by Salvi",
+      "price": 24000.00,
+      "quantity": 1,
+      "product_image_url": "https://www.harpconnection.com/SalviUSA/images/aurora-mah-300.jpg",
+      "added_on": "2023-07-15",
+      "category_id": 6
+    }
+  },
+  {
+    "model": "bangazonapi.product",
+    "pk": 4,
+    "fields": {
+      "seller_id": 1,
+      "name": "Platia Garden Water Fountain",
+      "description": "Three-tiered, concrete water fountain for outdoor garden spaces.",
+      "price": 1249.99,
+      "quantity": 5,
+      "product_image_url": "https://www.outdoorfountainpros.com/cdn/shop/products/Platia_Fountain_Garden_Water_Fountain.jpg?v=1644665599",
+      "added_on": "2023-07-15",
+      "category_id": 4
+    }
+  }
+
+]
