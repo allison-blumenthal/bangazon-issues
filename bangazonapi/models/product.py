@@ -9,7 +9,7 @@ class Product(models.Model):
   seller_id = models.ForeignKey(User, on_delete=models.CASCADE)
   name = models.CharField(max_length=300)
   description = models.CharField(max_length=1000)
-  price = models.DecimalField(max_digits=6, decimal_places=2)
+  price = models.DecimalField(max_digits=7, decimal_places=2)
   quantity = models.IntegerField()
   product_image_url = models.CharField(max_length=5000)
   added_on = models.DateField()
