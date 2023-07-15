@@ -1,34 +1,34 @@
 [
   {
-    "model": "bangazonapi.payment_type",
+    "model": "bangazonapi.paymenttype",
     "pk": 1,
     "fields": {
       "label": "Credit Card"
     }
   },
   {
-    "model": "bangazonapi.payment_type",
+    "model": "bangazonapi.paymenttype",
     "pk": 2,
     "fields": {
       "label": "PayPal"
     }
   },
   {
-    "model": "bangazonapi.payment_type",
+    "model": "bangazonapi.paymenttype",
     "pk": 3,
     "fields": {
       "label": "Google Pay"
     }
   },
   {
-    "model": "bangazonapi.payment_type",
+    "model": "bangazonapi.paymenttype",
     "pk": 4,
     "fields": {
       "label": "Venmo"
     }
   },
   {
-    "model": "bangazonapi.payment_type",
+    "model": "bangazonapi.paymenttype",
     "pk": 5,
     "fields": {
       "label": "Bank Draft"
