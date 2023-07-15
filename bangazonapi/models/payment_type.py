@@ -1,6 +1,6 @@
 from django.db import models
 
 
-class Payment(models.Model):
+class PaymentType(models.Model):
   
   label = models.CharField(max_length=200)
