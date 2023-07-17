@@ -7,18 +7,24 @@ from rest_framework.views import APIView
 
 class UserView(APIView):
   
+  # the get method below is replacing the list method and  inheriting from APIView
   def get(self, request):
     """Gets all users
     
     Returns 
-      Response -- single JSON serialized of users
+      Response -- JSON serialized list of users
     """
-    uid = request.query_params.get('uid')
-    users = User.objects.all()
     
+    # get all users 
+    users = User.objects.all()
+    # establish the query parameter of uid and use the get method to retrieve the uid value from the query param
+    uid = request.query_params.get('uid')
+    
+    # if the uid exists, filter the list of users by the uid
     if uid:
         users = users.filter(uid=uid)
     
+    # serialize any matching instances
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
       
