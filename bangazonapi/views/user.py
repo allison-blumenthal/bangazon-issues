@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 
 class UserView(APIView):
   
-  # the get method below is replacing the list method and  inheriting from APIView
+  # the get method below is replacing the list method 
+  # and inheriting from APIView
   def get(self, request):
     """Gets all users
     
@@ -17,7 +18,10 @@ class UserView(APIView):
     
     # get all users 
     users = User.objects.all()
-    # establish the query parameter of uid and use the get method to retrieve the uid value from the query param
+    
+    # Establish the query parameter of uid and 
+    # use the .get method to retrieve the object with matching 
+    # uid value. If no user is found, an exception is raised.
     uid = request.query_params.get('uid')
     
     # if the uid exists, filter the list of users by the uid
