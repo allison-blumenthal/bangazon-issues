@@ -31,6 +31,9 @@ class OrderView(ViewSet):
     """
     
     orders = Order.objects.all()
+    customer_orders = request.query_params.get('customer_id', None)
+    if customer_orders is not None:
+        orders = orders.filter(customer_id=customer_orders)
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
 
@@ -41,3 +44,4 @@ class OrderSerializer(serializers.ModelSerializer):
   class Meta:
       model = Order
       fields = ('id', 'customer_id', 'payment_type', 'total', 'needs_shipping', 'is_completed', 'date_placed')
+      depth = 1
