@@ -31,9 +31,20 @@ class OrderView(ViewSet):
     """
     
     orders = Order.objects.all()
-    customer_orders = request.query_params.get('customer_id', None)
-    if customer_orders is not None:
-        orders = orders.filter(customer_id=customer_orders)
+    
+    # filter orders by customer_id 
+    customer_id = request.query_params.get('customer_id', None)
+    
+    if customer_id is not None:
+      try:
+          # customer_id query param is converted to an integer
+          customer_id = int(customer_id)
+      except ValueError:
+          return Response({'message': 'Invalid customer_id'}, status=status.HTTP_400_BAD_REQUEST)
+    #filter orders by both the customer_id and is_completed=true
+    orders = Order.objects.filter(customer_id=customer_id, is_completed=True)
+
+    
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
 
@@ -44,4 +55,4 @@ class OrderSerializer(serializers.ModelSerializer):
   class Meta:
       model = Order
       fields = ('id', 'customer_id', 'payment_type', 'total', 'needs_shipping', 'is_completed', 'date_placed')
-      depth = 1
+      depth = 0
