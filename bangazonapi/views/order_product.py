@@ -61,6 +61,30 @@ class OrderProductView(ViewSet):
         )
         serializer = OrderProductSerializer(order_product)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+      
+    def update(self, request, pk):
+      """Handle PUT requests for an order_product
+      
+      Returns:
+          Response -- Empty body with 204 status code
+      """
+      # get the order_product by the primary key
+      order_product = OrderProduct.objects.get(pk=pk)
+      order_product.quantity = request.data["quantity"]
+      
+      # use the order_id as the foreign key to access order object
+      order_id = Order.objects.get(pk=request.data["orderId"])
+      order_product.order_id = order_id
+      
+      # use the product_id as the foreign key to access the product object
+      product_id = Product.objects.get(pk=request.data["productId"])
+      order_product.product_id = product_id
+      
+      # save the updated order_product
+      order_product.save()
+      
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
+      
 
 class OrderProductSerializer(serializers.ModelSerializer):
   """JSON serializer for order_products"""
