@@ -37,6 +37,37 @@ class PaymentTypeView(ViewSet):
       serializer = PaymentTypeSerializer(payment_types, many=True)
       return Response(serializer.data)
     
+    def create(self, request):
+      """Handle POST operations for payment_type
+      
+      Returns:
+          Response -- JSON serialized payment_type instance
+      """
+      
+      payment_type = PaymentType.objects.create(
+        label=request.data["label"]
+      )
+      serializer = PaymentTypeSerializer(payment_type)
+      return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def update(self, request, pk):
+      """Handle PUT requests for a payment_type
+      
+      Returns:
+          Response -- Empty body with 204 status code
+      """
+      payment_type = PaymentType.objects.get(pk=pk)
+      payment_type.label = request.data["label"]
+      
+      payment_type.save()
+      
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+      payment_type = PaymentType.objects.get(pk=pk)
+      payment_type.delete()
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
 class PaymentTypeSerializer(serializers.ModelSerializer):
   """JSON serializer for categories"""
   
