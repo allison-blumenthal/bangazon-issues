@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from bangazonapi.models import Order
+from bangazonapi.models import Order, User, PaymentType
 
 
 class OrderView(ViewSet):
@@ -47,6 +47,29 @@ class OrderView(ViewSet):
     
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
+  
+  def create(self, request):
+    """Handle POST operations for order
+    
+    Returns:
+        Response -- JSON serialized order instance
+    """
+    
+    customer_id = User.objects.get(pk=request.data["customerId"])
+    payment_type = PaymentType.objects.get(pk=request.data["paymentType"])
+    
+    order = Order.objects.create(
+      customer_id=customer_id,
+      payment_type=payment_type,
+      total=request.data["total"],
+      needs_shipping=request.data["needsShipping"],
+      is_completed=request.data["isCompleted"],
+      date_placed=request.data["datePlaced"]
+    )
+    serializer = OrderSerializer(order)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    
 
 
 class OrderSerializer(serializers.ModelSerializer):
