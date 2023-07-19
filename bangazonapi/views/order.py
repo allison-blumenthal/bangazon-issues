@@ -41,8 +41,9 @@ class OrderView(ViewSet):
           customer_id = int(customer_id)
       except ValueError:
           return Response({'message': 'Invalid customer_id'}, status=status.HTTP_400_BAD_REQUEST)
-    #filter orders by both the customer_id and is_completed=true
-    orders = Order.objects.filter(customer_id=customer_id, is_completed=True)
+        
+      #filter orders by both the customer_id and is_completed=true
+      orders = Order.objects.filter(customer_id=customer_id, is_completed=True)
 
     
     serializer = OrderSerializer(orders, many=True)
@@ -69,7 +70,28 @@ class OrderView(ViewSet):
     serializer = OrderSerializer(order)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+  def update(self, request, pk):
+    """Handle PUT requests for an order
     
+    Returns:
+        Response -- Empty body with 204 status code
+    """
+    
+    order = Order.objects.get(pk=pk)
+    order.total = request.data["total"]
+    order.needs_shipping=request.data["needsShipping"]
+    order.is_completed=request.data["isCompleted"]
+    order.date_placed=request.data["datePlaced"]
+    
+    customer_id = User.objects.get(pk=request.data["customerId"])
+    order.customer_id = customer_id
+    
+    payment_type = PaymentType.objects.get(pk=request.data["paymentType"])
+    order.payment_type = payment_type
+    
+    order.save()
+    
+    return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 
 class OrderSerializer(serializers.ModelSerializer):
