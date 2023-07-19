@@ -35,7 +35,7 @@ class OrderProductView(ViewSet):
     
       order_products = OrderProduct.objects.all()
       
-      # filter to query orders_products by order_id
+      # filter to query order_products by order_id
       order_id = request.query_params.get('order_id', None)
       
       if order_id is not None:
