@@ -4,3 +4,4 @@ from .product import ProductView
 from .order import OrderView
 from .order_product import OrderProductView
 from .category import CategoryView
+from .payment_type import PaymentTypeView
