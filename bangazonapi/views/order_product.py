@@ -84,6 +84,11 @@ class OrderProductView(ViewSet):
       order_product.save()
       
       return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+      order_product = OrderProduct.objects.get(pk=pk)
+      order_product.delete()
+      return Response(None, status=status.HTTP_204_NO_CONTENT)
       
 
 class OrderProductSerializer(serializers.ModelSerializer):
