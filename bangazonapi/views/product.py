@@ -31,6 +31,13 @@ class ProductView(ViewSet):
     """
     
     products = Product.objects.all()
+    
+    # filter products by seller_id
+    seller_id = request.query_params.get('seller_id', None)
+    
+    if seller_id is not None:
+      products = products.filter(seller_id_id=seller_id)
+    
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
   
@@ -100,3 +107,4 @@ class ProductSerializer(serializers.ModelSerializer):
   class Meta:
       model = Product
       fields = ('id', 'seller_id', 'name', 'description', 'price', 'quantity', 'product_image_url', 'added_on', 'category_id')
+      depth = 1
