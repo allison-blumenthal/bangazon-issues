@@ -1,16 +1,15 @@
 from django.http import HttpResponseServerError
+from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from bangazonapi.models import User
-from rest_framework.views import APIView
 
 
-class UserView(APIView):
-  
-  # the get method below is replacing the list method 
-  # and inheriting from APIView
-  def get(self, request):
-    """Gets all users
+class UserView(ViewSet):
+  """Bangazon API User View"""
+
+  def list(self, request):
+    """Handle GET requests for users
     
     Returns 
       Response -- JSON serialized list of users
@@ -31,6 +30,23 @@ class UserView(APIView):
     # serialize any matching instances
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
+  
+  
+  def retrieve(self, request, pk):
+    """Handle GET request for a single user
+    
+    Returns -- JSON serialized user object
+    """
+    
+    try:
+        user = User.objects.get(pk=pk)
+        
+        serializer = UserSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+      
+    except User.DoesNotExist as ex:
+      return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND) 
+    
       
 
 class UserSerializer(serializers.ModelSerializer):

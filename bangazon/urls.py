@@ -25,6 +25,7 @@ router.register(r'orders', OrderView, 'order')
 router.register(r'orderproducts', OrderProductView, 'orderproduct')
 router.register(r'categories', CategoryView, 'category')
 router.register(r'paymenttypes', PaymentTypeView, 'paymenttype')
+router.register(r'users', UserView, 'user')
 
 
 urlpatterns = [
@@ -32,6 +33,4 @@ urlpatterns = [
     path('', include(router.urls)),
     path('register', register_user),
     path('checkuser', check_user),
-    # Modified URL to use UserView directly without the router. This single url pattern maps to UserView using .as_view(), eliminating the need for a router to directly use UserView.
-    path('users/', UserView.as_view())
 ]
