@@ -32,8 +32,9 @@ class OrderView(ViewSet):
     
     orders = Order.objects.all()
     
-    # filter orders by customer_id 
+    # define query params
     customer_id = request.query_params.get('customer_id', None)
+    is_completed = request.query_params.get('is_completed')
     
     if customer_id is not None:
       try:
@@ -42,10 +43,16 @@ class OrderView(ViewSet):
       except ValueError:
           return Response({'message': 'Invalid customer_id'}, status=status.HTTP_400_BAD_REQUEST)
         
-      #filter orders by both the customer_id and is_completed=true
-      orders = Order.objects.filter(customer_id=customer_id, is_completed=True)
+      #filter orders by customer_id
+      orders = orders.filter(customer_id=customer_id)
+      
+    if is_completed is not None:
+      if is_completed.lower() in ['true', 'false']:
+          is_completed = is_completed.lower() == 'true'
+          orders = orders.filter(is_completed=is_completed)
+      else:
+          return Response({'message': 'Invalid is_completed value'}, status=status.HTTP_400_BAD_REQUEST)
 
-    
     serializer = OrderSerializer(orders, many=True)
     return Response(serializer.data)
   
