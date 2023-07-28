@@ -1,6 +1,7 @@
-from bangazonapi.models import User
+from bangazonapi.models import User, Order, PaymentType
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from datetime import date
 
 # api_view decorator with 'POST' passed as an argument
 # indicating that this view function should handle POST requests.
@@ -78,4 +79,17 @@ def register_user(request):
       'registered_on': user.registered_on,
       'is_active': user.is_active
   }
+  
+  # create default payment type value
+  default_payment_type = PaymentType.objects.get(id=1)
+  
+  order = Order.objects.create(
+    customer_id=user,
+    payment_type=default_payment_type,
+    total=0.00,
+    needs_shipping=False,
+    is_completed=False,
+    date_placed=date.today()
+  )
+  
   return Response(data)

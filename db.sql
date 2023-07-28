@@ -1,4 +1,3 @@
 
-UPDATE bangazonapi_order
-SET is_completed = true
-WHERE id=2;
+DELETE FROM bangazonapi_USER
+WHERE id=11;
