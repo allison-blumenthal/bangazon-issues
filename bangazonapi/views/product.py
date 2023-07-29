@@ -34,9 +34,13 @@ class ProductView(ViewSet):
     
     # filter products by seller_id
     seller_id = request.query_params.get('seller_id', None)
+    category_id = request.query_params.get('category_id', None)
     
     if seller_id is not None:
       products = products.filter(seller_id_id=seller_id)
+      
+    if category_id is not None:
+      products = products.filter(category_id_id=category_id)
     
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
