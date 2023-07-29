@@ -87,7 +87,7 @@ def register_user(request):
     customer_id=user,
     payment_type=default_payment_type,
     total=0.00,
-    needs_shipping=False,
+    needs_shipping=True,
     is_completed=False,
     date_placed=date.today()
   )
