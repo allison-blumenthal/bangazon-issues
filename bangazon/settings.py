@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'bangazonapi',
+    'django_heroku',
 ]
 
 CORS_ORIGIN_WHITELIST = (
